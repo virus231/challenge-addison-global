@@ -21,7 +21,8 @@ export const useStore = create<MarketState>(set => ({
     }),
     removeBetslip: (id) => set(state => {
         set({
-            betslips: state.betslips.filter(item => item.id !== id)
+            betslips: state.betslips.filter(item => item.id !== id),
+            isOpenDrawer: false
         })
     }),
     onOpen: (openDrawer) => set(({

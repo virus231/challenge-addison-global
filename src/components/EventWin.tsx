@@ -9,24 +9,23 @@ type Props = {
     market: MarketType;
 }
 
-
 export const EventWin = ({market}: Props) => {
-
     const addBetslip = useStore(state => state.addBetslip);
     const onOpen = useStore(state => state.onOpen);
     const betslips = useStore(state => state.betslips);
+    const isOpenDrawer = useStore(state => state.isOpenDrawer);
+    const removeBetslip = useStore(state => state.removeBetslip);
+
 
     const addToBetslip = (betslip: SelectionType, open: boolean) => {
         addBetslip(betslip);
         onOpen(open);
     }
 
-    return <Box>
-        <h1>{market.name}</h1>
+    return <Box my={2}>
         <Grid container justifyContent="center">
             {market.selections.map(({id, name, price}) => {
                 const isBetslipExist = betslips.some(betslip => betslip.id === id);
-                console.log(isBetslipExist);
 
                 return <Grid key={`${id}-${name}`}
                              xs={2}
@@ -34,7 +33,10 @@ export const EventWin = ({market}: Props) => {
                              justifyContent="center"
                 >
                     <Button color={isBetslipExist ? "success" : "inherit"}
-                            variant="outlined" onClick={() => addToBetslip({id, name, price}, true)}>
+                            variant="outlined" onClick={() => !isBetslipExist ?
+                                addToBetslip({id, name, price}, !isOpenDrawer)
+                                : removeBetslip(id)
+                    }>
                         <Box>
                             <h2>{name}</h2>
                             <p>{price}</p>

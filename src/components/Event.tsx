@@ -7,13 +7,15 @@ type Props = {
 }
 
 export const Event = ({event}: Props) => {
+    const isEventExist = event.markets.length > 0 && event.name;
 
-    return <Box>
-        <h1>{event.markets.length > 0 && event.name}</h1>
+    return <Box style={{"border": `2px solid ${isEventExist ? "black" : "white"}`}} mb={5}>
+        <h1>{isEventExist}</h1>
         <Box>
             {event.markets.map((market) => <EventWin
                 key={market.id}
-                market={market}/>
+                market={market}
+                />
             )}
         </Box>
     </Box>
