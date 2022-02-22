@@ -10,7 +10,7 @@ interface MarketState {
 }
 
 
-export const useStore = create<MarketState>(set => ({
+export const useStore = create<MarketState>((set, get) => ({
     betslips: [],
     isOpenDrawer: false,
     addBetslip: (betslip ) => set(state => {
